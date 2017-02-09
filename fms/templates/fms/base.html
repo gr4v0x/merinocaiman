@@ -1,0 +1,111 @@
+{% load staticfiles %}
+{% load navigation_tags %}
+
+{% url 'dashboard' as dashboard %}
+{% url 'documents' as documents %}
+{% url 'docs_for_disclosure' as docs_for_disclosure %}
+{% url 'docs_not_disclosure' as docs_not_disclosure %}
+{% url 'exhibits' as docs_exhibits %}
+{% url 'notebook' as notebook %}
+{% url 'tasks' as tasks %}
+
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Merino Caiman</title>
+
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/fms.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+       <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <a class="navbar-brand" href="#">File Management System</a>
+
+       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+         <ul class="navbar-nav mr-auto">
+           <li class="nav-item active">
+             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="#">Settings</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="#">Help</a>
+           </li>
+         </ul>
+         <ul class="navbar-nav mt-2 mt-md-0">
+           <li class="nav-item active">
+             <a class="nav-link" href="#">{{ user.username }}</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+           </li>
+         </form>
+       </div>
+     </nav>
+
+     <div class="container-fluid">
+       <div class="row">
+         <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+           <ul class="nav nav-pills flex-column">
+             <li class="nav-item">
+               <a class="{% active request dashboard %}" href="{{ dashboard }}">Overview<span class="sr-only">(current)</span></a>
+             </li>
+           </ul>
+
+           <ul class="nav nav-pills flex-column">
+               <li class="nav-item">
+                   <a class="{% active request notebook %}" href="{{ notebook }}">Notebook</a>
+               </li>
+               <li class="nav-item">
+                   <a class="{% active request tasks %}" href="{{ tasks }}">Tasks</a>
+               </li>
+           </ul>
+
+           <ul class="nav nav-pills flex-column">
+             <li class="nav-item">
+               <a class="{% active request documents %}" href="{{ documents }}">Documents</a>
+             </li>
+             <li class="nav-item">
+               <a class="{% active_sub request docs_for_disclosure %}" href="{{ docs_for_disclosure }}">For Disclosure</a>
+             </li>
+             <li class="nav-item">
+               <a class="{% active_sub request docs_not_disclosure %}" href="{{ docs_not_disclosure }}">Not for Disclosure</a>
+             </li>
+             <li class="nav-item">
+               <a class="{% active_sub request docs_exhibits %}" href="{{ docs_exhibits }}">Exhibits</a>
+             </li>
+           </ul>
+
+           <ul class="nav nav-pills flex-column">
+             <li class="nav-item">
+               <a class="nav-link" href="#">Nav item again</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="#">One more nav</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="#">Another nav item</a>
+             </li>
+           </ul>
+         </nav>
+          {% block content %}
+          {% endblock %}
+      </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="{% static 'js/fms/bootstrap.min.js' %}"></script>
+    <script src="https://use.fontawesome.com/830b063ba1.js"></script>
+
+</body>
+</html>

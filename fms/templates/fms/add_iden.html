@@ -1,0 +1,44 @@
+{% extends 'fms/base.html' %}
+{% block content %}
+
+<main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+    <h1>Add New Identity</h1>
+    <section class="col-sm-7 col-md-8 pt-3">
+        <form>{% csrf_token %}
+            <div class="row">
+                <div class="form-group col-sm-3 col-md-4">
+                    <label for="{{ form.lastName.id_for_label }}"><strong>Last Name</strong></label>
+                    {{ form.lastName }}
+                </div>
+                <div class="form-group col-sm-3 col-md-4">
+                    <label for="{{ form.firstName.id_for_label }}"><strong>First Name</strong></label>
+                    {{ form.firstName }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 col-md-8">
+                    <label for="{{ form.otherName.id_for_label }}"><strong>Other Names</strong></label>
+                    {{ form.otherName }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-3 col-md-4">
+                    <label for="{{ form.gender.id_for_label }}"><strong>Gender</strong></label>
+                    {{ form.gender }}
+                </div>
+                <div class="form-group col-sm-3 col-md-4">
+                    <label for="{{ form.dateOfBirth.id_for_label }}"><strong>Date of Birth</strong></label>
+                    <div class="input-group">{{ form.firstName }}<span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-3 col-md-4">
+                    <button type="submit" class="save btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </section>
+    </h1>
+</main>
+
+{% endblock %}
