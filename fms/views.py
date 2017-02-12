@@ -1,7 +1,10 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+import hashlib
 
-from .forms import MainIdenForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
+from .forms import MainIdenForm, AddNoteForm
+from .models import MainIden
 
 # Create your views here.
 @login_required
@@ -26,11 +29,25 @@ def docs_exhibits(request):
 
 @login_required
 def main_identities(request):
-    return render(request, 'fms/identities.html', {})
+    main_idens = MainIden.objects.all()
+    return render(request, 'fms/identities.html', {'main_idens': main_idens})
 
 @login_required
 def add_iden(request):
-    main_iden_form = MainIdenForm()
+    if request.method == "POST":
+        main_iden_form = MainIdenForm(request.POST)
+        if main_iden_form.is_valid():
+            main_iden = main_iden_form.save(commit=False)
+            mk = hashlib.sha1()
+            mk.update(main_iden.lastName)
+            mk.update(main_iden.firstName)
+            mk.update(main_iden.otherName)
+            mk.update(str(main_iden.dateOfBirth))
+            main_iden.mainIdenKey = mk.hexdigest()
+            main_iden.save()
+            return redirect('identities')
+    else:
+        main_iden_form = MainIdenForm()
     return render(request, 'fms/add_iden.html', {'form': main_iden_form})
 
 @login_required
@@ -40,3 +57,8 @@ def tasks(request):
 @login_required
 def notebook(request):
     return render(request, 'fms/notebook.html', {})
+
+@login_required
+def add_note(request):
+    add_note_form = AddNoteForm()
+    return render(request, 'fms/add_note.html', {'form': add_note_form})

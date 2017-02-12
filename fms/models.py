@@ -3,10 +3,25 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 
-GENDER_CHOICES = (
+import xml.etree.ElementTree as ET
+
+GENDER = (
     ('M', 'Male'),
     ('F', 'Female'),
     ('X', 'Non-Binary'),
+)
+
+COUNTRIES = []
+country_tree = ET.parse('/etc/countries.xml')
+country_root = country_tree.getroot()
+for child in country_root:
+    COUNTRIES.append((child.get('alpha-2'), child.get('name')))
+
+PERSON_TYPE = (
+    ('witness', 'Witness'),
+    ('informant', 'Informant'),
+    ('suspect', 'Suspect'),
+    ('enabler', 'Enabler'),
 )
 
 # Create your models here.
@@ -23,10 +38,11 @@ class MainIden(models.Model):
     lastName = models.CharField(max_length=256)
     firstName = models.CharField(max_length=256)
     otherName = models.CharField(max_length=512, null=True)
-    gender = models.CharField(max_length=12, choices=GENDER_CHOICES, null=True)
+    gender = models.CharField(max_length=12, choices=GENDER, null=True)
     dateOfBirth = models.DateField(null=True)
     cityOfBirth = models.CharField(max_length=256)
-    countryOfBirth = models.CharField(max_length=256)
+    countryOfBirth = models.CharField(max_length=256, choices=COUNTRIES)
+    idenType = models.CharField(max_length=64, choices=PERSON_TYPE, null=True)
     dateTimeAdded = models.DateTimeField(auto_now_add=True)
     mainIdenKey = models.CharField(max_length=45, primary_key=True)
 
@@ -88,5 +104,8 @@ class Task(models.Model):
 
 class NoteBook(models.Model):
     note = models.CharField(max_length=20000)
+    noteDate = models.DateField()
+    noteTime = models.TimeField()
+    subject = models.CharField(max_length=255)
     dateTimeAdded = models.DateTimeField(auto_now_add=True)
     noteKey = models.CharField(max_length=45, primary_key=True)

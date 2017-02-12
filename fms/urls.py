@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^identities/add$', views.add_iden, name="add_iden"),
     url(r'^tasks/$', views.tasks, name="tasks"),
     url(r'^notebook/$', views.notebook, name="notebook"),
+    url(r'^notebook/add/$', views.add_note, name="add_note")
 ]
