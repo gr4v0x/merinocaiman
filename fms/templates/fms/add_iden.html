@@ -4,7 +4,12 @@
 <script>
     $( function() {
         $("#id_dateOfBirth").datepicker({
-            dateFormat: 'dd/mm/yy'
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: "-100Y",
+            maxDate: 0,
+            yearRange: "1900:2050"
         });
     } );
 </script>

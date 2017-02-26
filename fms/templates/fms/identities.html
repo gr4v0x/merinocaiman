@@ -5,39 +5,43 @@
 
          <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
            <h1>Identities</h1>
-
-           <h2>Recently Added</h2>
            <div class="row">
-           <section class="col-md-10">
-           <div class="table-responsive">
-             <table class="table table-striped">
-               <thead>
-                 <tr>
-                   <th>Last Name</th>
-                   <th>First Name</th>
-                   <th>Other Names</th>
-                   <th>Gender</th>
-                   <th>Date of Birth</th>
-                 </tr>
-               </thead>
-               <tbody>
-                 {% for iden in main_idens %}
-                 <tr>
-                   <td>{{ iden.lastName }}</td>
-                   <td>{{ iden.firstName }}</td>
-                   <td>{{ iden.gender }}</td>
-                   <td>{{ iden.dateOfBirth }}</td>
-                   <td>{{ iden.dateTimeAdded }}</td>
-                   <td>{{ iden.mainIdenKey }}</td>
-                 </tr>
-                 {% endfor %}
-               </tbody>
-             </table>
+               <div class="col-md-10">
+                   <h2>Recently Added</h2>
+                   <div class="table-responsive">
+                     <table class="table table-striped">
+                       <thead>
+                         <tr>
+                           <th>Last Name</th>
+                           <th>First Name</th>
+                           <th>Other Names</th>
+                           <th>Gender</th>
+                           <th>Date of Birth</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         {% for iden in main_idens %}
+                         <tr>
+                           <td>{{ iden.lastName }}</td>
+                           <td>{{ iden.firstName }}</td>
+                           <td>{{ iden.otherName }}</td>
+                           <td>{{ iden.gender }}</td>
+                           <td>{{ iden.dateOfBirth }}</td>
+                           <td>{{ iden.mainIdenKey }}</td>
+                         </tr>
+                         {% endfor %}
+                       </tbody>
+                     </table>
+                   </div>
+               </div>
+               <div class="col-md-2">
+                   <button type="button" class="btn btn-primary btn-block" onclick="location.href='{{ add_iden }}';">Add document</button>
+                   <button type="button" class="btn btn-warning btn-block">Button</button>
+                   <button type="button" class="btn btn-danger btn-block">Button 2</button>
+               </div>
            </div>
-       </section>
-       <section class="col-md-2">
-           <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='{{ add_iden }}';">Add document</button>
-       </section>
+
+
 
    </div>
          </main>
